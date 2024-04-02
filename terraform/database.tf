@@ -5,18 +5,11 @@ resource "azurerm_mysql_flexible_server" "example" {
   location               = var.resource_group_location
   administrator_login    = "psqladmin"
   administrator_password = "H@Sh1CoR3!"
+  delegated_subnet_id    = azurerm_subnet.db-subnet.id
+  private_dns_zone_id    = azurerm_private_dns_zone.example.id
   sku_name               = "GP_Standard_D2ds_v4"
-  zone                   = "3"
-}
 
-resource "azurerm_mysql_flexible_server_firewall_rule" "example" {
-  name                = "office"
-  resource_group_name = azurerm_resource_group.rg.name
-  server_name         = azurerm_mysql_flexible_server.example.name
-  # 「Allow access to Azure services」を有効にするため、start_ip_address と end_ip_address に 0.0.0.0 を指定します。
-  # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mysql_firewall_rule
-  start_ip_address    = "0.0.0.0"
-  end_ip_address      = "0.0.0.0"
+  depends_on = [azurerm_private_dns_zone_virtual_network_link.example]
 }
 
 resource "azurerm_mysql_flexible_database" "example" {

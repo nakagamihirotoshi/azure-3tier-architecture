@@ -17,14 +17,14 @@ variable "username" {
 }
 
 variable "database_server_name" {
-  type = string
+  type        = string
   description = "The name of the database server."
-  default = "cgg-2024-wellarchitected-db-sci02118"
+  default     = "ccc-2024-wellarchitected-db-sci02118"
 }
 
 variable "app_service_name" {
-  type = string
+  type        = string
   description = "The name of the app service."
-  default = "cgg-2024-wellarchitected-app-sci02118"
-  
+  default     = "ccc-2024-wellarchitected-app-sci02118"
+
 }
